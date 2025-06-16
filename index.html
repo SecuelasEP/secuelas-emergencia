@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡BASTA! - Secuelas</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <audio id="startAudio" autoplay src="assets/audio/start.mp3"></audio>
+  <div class="background"></div>
+  <button id="startBtn">¡BASTA!</button>
+  <div id="cameraContainer" class="hidden">
+    <video id="video" autoplay playsinline></video>
+    <button id="captureBtn">Tomar Foto</button>
+  </div>
+  <canvas id="canvas" class="hidden"></canvas>
+  <div id="resultContainer" class="hidden">
+    <img id="photo" />
+    <div id="textOverlay">
+      <p id="phrase"></p>
+      <p id="verse"></p>
+    </div>
+  </div>
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
