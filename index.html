@@ -3,26 +3,89 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>¡BASTA! - Secuelas</title>
-  <link rel="stylesheet" href="assets/css/styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>¡BASTA! – Secuelas</title>
+  <style>
+    body { margin:0; text-align:center; font-family:sans-serif; background:white; overflow:hidden; }
+    #btnBasta { font-size:2rem; padding:1rem 2rem; background:#e74c3c; color:white;
+      border:none; border-radius:10px; margin-top:2rem; }
+    video, img#foto { width:90%; max-width:350px; margin-top:1rem; }
+    #frase, #versiculo { margin-top:1rem; font-size:1.2rem; opacity:0; transition:opacity 2s; }
+  </style>
 </head>
 <body>
-  <audio id="startAudio" autoplay src="assets/audio/start.mp3"></audio>
-  <div class="background"></div>
-  <button id="startBtn">¡BASTA!</button>
-  <div id="cameraContainer" class="hidden">
-    <video id="video" autoplay playsinline></video>
-    <button id="captureBtn">Tomar Foto</button>
+
+  <audio id="alerta" src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3" preload="auto"></audio>
+
+  <button id="btnBasta">¡BASTA!</button>
+  <div id="camara" style="display:none;">
+    <video id="video" autoplay playsinline></video><br>
+    <button id="btnCapturar">Foto</button>
   </div>
-  <canvas id="canvas" class="hidden"></canvas>
-  <div id="resultContainer" class="hidden">
-    <img id="photo" />
-    <div id="textOverlay">
-      <p id="phrase"></p>
-      <p id="verse"></p>
-    </div>
-  </div>
-  <script src="assets/js/script.js"></script>
+  <canvas id="canvas" style="display:none;"></canvas>
+  <img id="foto" style="display:none;" />
+  <div id="frase"></div>
+  <div id="versiculo"></div>
+
+  <script>
+    const alerta = document.getElementById('alerta');
+    const btnBasta = document.getElementById('btnBasta');
+    const camara = document.getElementById('camara');
+    const video = document.getElementById('video');
+    const btnCapturar = document.getElementById('btnCapturar');
+    const canvas = document.getElementById('canvas');
+    const foto = document.getElementById('foto');
+    const fraseEl = document.getElementById('frase');
+    const versEl = document.getElementById('versiculo');
+
+    const frases = [
+      "Estás aquí. Eso es suficiente.",
+      "Ahora mismo, no falta nada.",
+      "No tienes que entender todo hoy.",
+      "Deja que el momento te sostenga.",
+      "No estás solo. Este instante te acompaña.",
+      "Vuelve al cuerpo. Estás a salvo.",
+      "Tu mente corre. Tú puedes quedarte.",
+      "Aquí, ahora. Todo está bien.",
+      "Respira. Estás presente. Eso basta.",
+      "No eres lo que piensas. Eres quien respira detrás."
+    ];
+    const versiculos = [
+      "1 Pedro 5:7 – “Echen toda su ansiedad sobre él, porque él cuida de ustedes.”",
+      "Filipenses 4:6–7 – “No se inquieten por nada; presenten sus peticiones... Y la paz de Dios... cuidará sus corazones y pensamientos.”",
+      "Mateo 6:34 – “No se preocupen por el día de mañana...”",
+      "Salmo 46:10 – “Quédense quietos, reconozcan que yo soy Dios.”",
+      "Salmo 34:18 – “El Señor está cerca de los quebrantados de corazón.”",
+      "Isaías 41:10 – “No temas, porque yo estoy contigo...”",
+      "Mateo 11:28 – “Vengan a mí todos los que están cansados...”",
+      "Isaías 26:3 – “Tú guardarás en perfecta paz a aquel que confía en ti.”"
+    ];
+
+    btnBasta.addEventListener('click', () => {
+      alerta.play();
+      btnBasta.style.display = 'none';
+      camara.style.display = 'block';
+      navigator.mediaDevices.getUserMedia({ video: true }).then(s => video.srcObject = s);
+    });
+
+    btnCapturar.addEventListener('click', () => {
+      const ctx = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0);
+      const dataUrl = canvas.toDataURL();
+      foto.src = dataUrl;
+      foto.style.display = 'block';
+      video.srcObject.getTracks().forEach(t => t.stop());
+      camara.style.display = 'none';
+
+      const fra = frases[Math.floor(Math.random()*frases.length)];
+      const ver = versiculos[Math.floor(Math.random()*versiculos.length)];
+      fraseEl.textContent = fra;
+      versEl.textContent = ver;
+      fraseEl.style.opacity = '1';
+      setTimeout(() => versEl.style.opacity = '1', 2000);
+    });
+  </script>
 </body>
 </html>
