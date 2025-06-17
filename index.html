@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secuelas - Emergencia</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="background"></div>
+  <audio id="alert-sound" src="assets/ReelAudio-83656.mp3"></audio>
+
+  <div class="content" id="main-content">
+    <button id="basta-button">¡BASTA!</button>
+
+    <div id="camera-container" class="hidden">
+      <video id="camera" autoplay playsinline></video>
+      <button id="take-photo">Tomar Foto</button>
+    </div>
+
+    <div id="photo-container" class="hidden">
+      <div class="polaroid">
+        <img id="captured-photo" src="" alt="Foto tomada" />
+      </div>
+    </div>
+
+    <div id="phrase" class="hidden"></div>
+    <div id="verse" class="hidden"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
