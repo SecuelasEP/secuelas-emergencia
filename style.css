@@ -1,0 +1,62 @@
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  background: #fdfcfb;
+  overflow: hidden;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('cuadros_nubes_fondo.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#bastaBtn {
+  background-color: #5D4037;
+  color: white;
+  font-size: 2em;
+  padding: 1em 2em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeIn 3s forwards 2s;
+}
+
+#polaroid {
+  margin-top: 20px;
+  border: 8px solid white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  padding: 10px;
+  background-color: white;
+}
+
+.mensaje, .versiculo {
+  font-size: 1.3em;
+  text-align: center;
+  max-width: 80%;
+  margin: 20px auto;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+.hidden {
+  display: none;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
