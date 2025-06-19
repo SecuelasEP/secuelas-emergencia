@@ -1,59 +1,78 @@
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Helvetica Neue', sans-serif;
-    background: url('assets/background-secuelas.png') no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: 'Georgia', serif;
+  background: url('assets/fondo.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
-.container {
-    text-align: center;
-    padding: 20px;
+.contenedor {
+  text-align: center;
+  color: white;
+  padding: 20px;
+  max-width: 90%;
 }
 
-#startButton {
-    padding: 20px 40px;
-    font-size: 24px;
-    background-color: #5c4033;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
+button {
+  background-color: #4e342e;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 30px;
+  font-size: 18px;
+  font-family: serif;
+  cursor: pointer;
+  margin: 15px auto;
+  display: block;
+}
+
+#video {
+  display: block;
+  max-width: 100%;
+  margin: 15px auto;
+  border-radius: 10px;
+}
+
+#polaroid {
+  width: 90%;
+  max-width: 300px;
+  margin-top: 20px;
+  transition: opacity 1s ease-in-out;
+  display: none;
+}
+
+.fade-out {
+  animation: dissolve 3s forwards;
+}
+
+@keyframes dissolve {
+  0% {
+    opacity: 1;
+    clip-path: inset(0% 0% 0% 0%);
+  }
+  100% {
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    clip-path: inset(50% 50% 50% 50%);
+  }
 }
 
-#camera, #photoCanvas {
-    display: none;
-    width: 90%;
-    max-width: 300px;
-    margin-top: 20px;
+#frase {
+  margin-top: 20px;
+  font-size: 20px;
+  font-style: italic;
+  color: white;
+  transition: opacity 1s ease;
 }
 
-#polaroidContainer img {
-    width: 100%;
-    max-width: 300px;
-    border: 10px solid white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    margin-top: 20px;
-    animation: reveal 1s ease-out forwards;
+#versiculo {
+  margin-top: 20px;
+  font-size: 16px;
+  font-family: 'Georgia', serif;
+  font-weight: normal;
+  line-height: 1.4;
 }
-
-@keyframes reveal {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
-}
-
-#textDisplay {
-    font-size: 20px;
-    color: #fff;
-    margin-top: 20px;
-    padding: 0 20px;
-    opacity: 0;
-    transition: opacity 1s;
-}
+    
