@@ -1,67 +1,78 @@
-const startButton = document.getElementById("startButton");
-const alertSound = document.getElementById("alertSound");
-const camera = document.getElementById("camera");
-const canvas = document.getElementById("photoCanvas");
-const textDisplay = document.getElementById("textDisplay");
-const polaroidContainer = document.getElementById("polaroidContainer");
-
 const frases = [
-  "Respira, todo va a estar bien.",
-  "Estás a salvo aquí y ahora.",
-  "Tu mente puede descansar.",
+  "Respira. Todo pasará.",
+  "No estás sola.",
+  "Dios cuida de ti.",
+  "Eres más fuerte de lo que piensas."
 ];
 
 const versiculos = [
-  "Salmos 46:1 - Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones.",
-  "Filipenses 4:6 - No se inquieten por nada; más bien, en toda ocasión, presenten sus peticiones a Dios en oración.",
-  "Isaías 41:10 - No temas, porque yo estoy contigo; no desmayes, porque yo soy tu Dios.",
+  "Salmo 34:18 — El Señor está cerca de los quebrantados de corazón.",
+  "Isaías 41:10 — No temas, porque yo estoy contigo.",
+  "Filipenses 4:6 — No se inquieten por nada, oren por todo.",
+  "Mateo 11:28 — Venid a mí todos los que estáis cansados y cargados, y yo os haré descansar."
 ];
 
-function esperar(ms) {
-  return new Promise((res) => setTimeout(res, ms));
-}
+window.onload = () => {
+  const alerta = document.getElementById('alerta');
+  const btn = document.getElementById('bastaBtn');
+  const video = document.getElementById('video');
+  const canvas = document.getElementById('canvas');
+  const img = document.getElementById('polaroid');
+  const fraseDiv = document.getElementById('frase');
+  const versiculoDiv = document.getElementById('versiculo');
 
-async function iniciar() {
-  alertSound.play();
-  await esperar(5000);
-  startButton.style.opacity = 1;
-}
+  alerta.play().catch(() => {});
+  setTimeout(() => btn.style.display = 'inline-block', 3500);
 
-iniciar();
+  let stream;
+  let front = true;
 
-startButton.addEventListener("click", async () => {
-  startButton.style.display = "none";
-  const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" } });
-  camera.srcObject = stream;
-  camera.style.display = "block";
+  btn.onclick = async () => {
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: (front ? "user" : "environment") }
+      });
+      video.srcObject = stream;
 
-  await esperar(3000);
+      crearBotonesCaptura();
+    } catch (err) {
+      alert("No se pudo acceder a la cámara");
+    }
+  };
 
-  const context = canvas.getContext("2d");
-  canvas.width = camera.videoWidth;
-  canvas.height = camera.videoHeight;
-  context.drawImage(camera, 0, 0, canvas.width, canvas.height);
+  function crearBotonesCaptura() {
+    let capture = document.createElement('button');
+    capture.textContent = "Capturar";
+    capture.onclick = () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+      const foto = canvas.toDataURL('image/jpeg');
+      img.src = foto;
+      img.style.display = 'block';
+      setTimeout(() => img.classList.add('fade-out'), 5000);
 
-  const imageData = canvas.toDataURL("image/png");
-  const img = new Image();
-  img.src = imageData;
-  polaroidContainer.innerHTML = "";
-  polaroidContainer.appendChild(img);
+      setTimeout(() => {
+        fraseDiv.innerText = frases[Math.floor(Math.random() * frases.length)];
+      }, 5500);
 
-  camera.srcObject.getTracks().forEach(track => track.stop());
-  camera.style.display = "none";
+      setTimeout(() => {
+        fraseDiv.innerText = "";
+        versiculoDiv.innerText = versiculos[Math.floor(Math.random() * versiculos.length)];
+      }, 12500);
+    };
 
-  await esperar(5000);
-  polaroidContainer.innerHTML = "";
+    let girar = document.createElement('button');
+    girar.textContent = "Cambiar cámara";
+    girar.onclick = () => {
+      front = !front;
+      if (stream) {
+        stream.getTracks().forEach(t => t.stop());
+      }
+      btn.click();
+    };
 
-  const frase = frases[Math.floor(Math.random() * frases.length)];
-  textDisplay.innerText = frase;
-  textDisplay.style.opacity = 1;
-  await esperar(7000);
-  textDisplay.style.opacity = 0;
-
-  await esperar(1000);
-  const versiculo = versiculos[Math.floor(Math.random() * versiculos.length)];
-  textDisplay.innerText = versiculo;
-  textDisplay.style.opacity = 1;
-});
+    document.body.appendChild(capture);
+    document.body.appendChild(girar);
+  }
+};
