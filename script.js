@@ -25,11 +25,21 @@ const verses = [
 ];
 
 window.onload = () => {
-  alertAudio.play();
+  const playAudio = () => {
+    alertAudio.play().catch(() => {
+      document.body.addEventListener('touchstart', () => {
+        alertAudio.play();
+      }, { once: true });
+    });
+  };
+
+  playAudio();
+
   setTimeout(() => {
     bastaBtn.style.display = "inline-block";
   }, 3000);
 };
+
 
 bastaBtn.onclick = async () => {
   bastaBtn.style.display = "none";
