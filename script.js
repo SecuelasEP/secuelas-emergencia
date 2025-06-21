@@ -47,34 +47,4 @@ window.onload = () => {
   capturar.onclick = () => {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    const foto = canvas.toDataURL('image/jpeg');
-    img.src = foto;
-    img.style.display = 'block';
-    setTimeout(() => img.classList.add('fade-out'), 4000);
-
-    // Ocultar cámara y controles
-    if (stream) {
-      stream.getTracks().forEach(t => t.stop());
-    }
-    video.style.display = 'none';
-    ui.style.display = 'none';
-
-    setTimeout(() => {
-      fraseDiv.innerText = frases[Math.floor(Math.random() * frases.length)];
-    }, 4500);
-
-    setTimeout(() => {
-      fraseDiv.innerText = "";
-      versiculoDiv.innerText = versiculos[Math.floor(Math.random() * versiculos.length)];
-    }, 11500);
-  };
-
-  girar.onclick = () => {
-    front = !front;
-    if (stream) {
-      stream.getTracks().forEach(t => t.stop());
-    }
-    btn.click();
-  };
-};
+    canvas.getContext('2d').drawImage(video, 0, 
