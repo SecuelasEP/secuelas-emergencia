@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secuelas – Emergencia</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <div id="inicio">
+    <div id="play">▶️</div>
+  </div>
+
+  <audio id="alerta" src="audio/alerta.mp3"></audio>
+
+  <button id="basta">¡BASTA!</button>
+
+  <div id="camara">
+    <video id="video" autoplay playsinline></video>
+    <div id="controles">
+      <button id="capturar">📸</button>
+      <button id="voltear">🔄</button>
+    </div>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <div id="polaroid">
+    <img id="foto" src="" alt="Foto capturada" />
+    <div id="disolver"></div>
+  </div>
+
+  <div id="frase"></div>
+  <div id="versiculo"></div>
+</body>
+</html>
