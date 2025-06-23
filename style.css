@@ -1,4 +1,4 @@
-
+/* Fondo y elementos base */
 body, html {
   margin: 0;
   padding: 0;
@@ -9,9 +9,17 @@ body, html {
   overflow: hidden;
 }
 
-.hidden { display: none !important; }
+.hidden {
+  display: none !important;
+}
 
-#startScreen, #bastaContainer, #cameraContainer, #polaroidContainer, #textContainer, #closingContainer {
+/* Pantalla de inicio */
+#startScreen,
+#bastaContainer,
+#cameraContainer,
+#polaroidContainer,
+#textContainer,
+#closingContainer {
   position: absolute;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
@@ -22,7 +30,7 @@ body, html {
 }
 
 #startScreen {
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
   z-index: 10;
 }
 
@@ -36,6 +44,7 @@ body, html {
   cursor: pointer;
 }
 
+/* Botón ¡BASTA! */
 #bastaBtn {
   font-size: 2rem;
   padding: 1em 2em;
@@ -45,8 +54,9 @@ body, html {
   border-radius: 10px;
 }
 
+/* Cámara */
 #cameraContainer {
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 video {
@@ -54,7 +64,7 @@ video {
   max-width: 360px;
   height: auto;
   border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 #cameraControls button {
@@ -62,9 +72,11 @@ video {
   font-size: 1.5rem;
 }
 
+/* Polaroid */
 #polaroidFrame {
   width: 75vw;
   max-width: 280px;
+  z-index: 1;
 }
 
 #snapshot {
@@ -91,8 +103,9 @@ video {
   100% { clip-path: inset(100% 100% 100% 100%); opacity: 0; }
 }
 
+/* Frases y versículos */
 .text-background {
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.85);
   padding: 20px;
   border-radius: 10px;
   max-width: 85vw;
@@ -100,40 +113,72 @@ video {
 }
 
 #frase, #versiculo {
-  font-size: 1.3rem;
-  line-height: 1.6;
+  font-size: 1.6rem;
+  line-height: 1.8;
+  color: #111;
 }
 
-#closingContainer .breathe-animation {
-  width: 80px;
-  height: 80px;
+/* Animación de respiración */
+.breathe-circle {
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.6);
+  background: rgba(255, 255, 255, 0.4);
   animation: breathe 4s ease-in-out infinite;
   margin-bottom: 20px;
 }
 
 @keyframes breathe {
-  0% { transform: scale(0.9); opacity: 0.5; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(0.9); opacity: 0.5; }
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.4); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 0.5; }
 }
 
-.closingText {
-  font-size: 1.2rem;
-  margin-bottom: 1em;
-  color: #333;
-  background: rgba(255,255,255,0.6);
-  padding: 10px 20px;
-  border-radius: 10px;
+#respiraText {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 1.5em;
 }
 
-#closingContainer button {
-  padding: 10px 20px;
+#volverTexto {
   font-size: 1rem;
+  color: #444;
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  opacity: 1;
+  animation: fadeOut 4s ease-in 3s forwards;
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; }
+}
+
+/* Marca del proyecto */
+#marcaFinal {
+  text-align: center;
+  margin-bottom: 1em;
+  color: #111;
+}
+
+#marcaFinal p {
+  margin: 0;
+}
+
+#marcaFinal .sub {
+  font-size: 0.95rem;
+  font-weight: normal;
+  opacity: 0.8;
+}
+
+/* Botón de reinicio */
+#restartBtn {
+  padding: 12px 25px;
+  font-size: 1.2rem;
   background: black;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
 }
