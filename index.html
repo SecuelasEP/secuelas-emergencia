@@ -3,20 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-  <title>Secuelas Emergencia</title>
+  <title>Secuelas – Emergencia</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- Pantalla de inicio -->
   <div id="startScreen">
     <button id="startBtn">▶️</button>
   </div>
 
   <audio id="alerta" src="assets/Alerta.mp3"></audio>
 
+  <!-- Botón ¡BASTA! -->
   <div id="bastaContainer" class="hidden">
     <button id="bastaBtn" onclick="openCamera()">¡BASTA!</button>
   </div>
 
+  <!-- Cámara -->
   <div id="cameraContainer" class="hidden">
     <video id="video" autoplay playsinline></video>
     <div id="cameraControls">
@@ -25,11 +29,13 @@
     </div>
   </div>
 
+  <!-- Polaroid -->
   <div id="polaroidContainer" class="hidden">
     <img id="polaroidFrame" src="assets/polaroid.png" />
     <canvas id="snapshot"></canvas>
   </div>
 
+  <!-- Texto -->
   <div id="textContainer" class="hidden">
     <div class="text-background">
       <p id="frase"></p>
@@ -37,15 +43,18 @@
     </div>
   </div>
 
+  <!-- Cierre -->
   <div id="closingContainer" class="hidden">
     <div class="breathe-circle"></div>
     <p id="respiraText">Respira</p>
     <p id="volverTexto">Puedes regresar cuando lo necesites.</p>
-    <div id="marcaFinal">
+
+    <div id="marcaFinal" class="hidden">
       <p>Secuelas</p>
       <p class="sub">una lucha constante con nuestra propia mente</p>
     </div>
-    <button id="restartBtn" onclick="restart()">Volver a comenzar</button>
+
+    <button id="restartBtn" class="hidden" onclick="restart()">Volver a comenzar</button>
   </div>
 
   <script src="script.js"></script>
