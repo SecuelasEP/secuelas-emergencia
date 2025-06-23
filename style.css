@@ -1,4 +1,4 @@
-/* Fondo y elementos base */
+/* Fondo y estructura base */
 body, html {
   margin: 0;
   padding: 0;
@@ -13,7 +13,6 @@ body, html {
   display: none !important;
 }
 
-/* Pantalla de inicio */
 #startScreen,
 #bastaContainer,
 #cameraContainer,
@@ -29,6 +28,7 @@ body, html {
   flex-direction: column;
 }
 
+/* Botón de inicio */
 #startScreen {
   background: rgba(255, 255, 255, 0.9);
   z-index: 10;
@@ -52,6 +52,7 @@ body, html {
   color: white;
   border: none;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 /* Cámara */
@@ -95,7 +96,7 @@ video {
 }
 
 #polaroidContainer.disintegrate {
-  animation: disintegrate 1.2s steps(20) forwards;
+  animation: disintegrate 1.5s steps(20) forwards;
 }
 
 @keyframes disintegrate {
@@ -105,16 +106,16 @@ video {
 
 /* Frases y versículos */
 .text-background {
-  background-color: rgba(255, 255, 255, 0.85);
-  padding: 20px;
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.92);
+  padding: 25px;
+  border-radius: 12px;
   max-width: 85vw;
   text-align: center;
 }
 
 #frase, #versiculo {
-  font-size: 1.6rem;
-  line-height: 1.8;
+  font-size: 1.7rem;
+  line-height: 1.9;
   color: #111;
 }
 
@@ -141,6 +142,7 @@ video {
   margin-bottom: 1.5em;
 }
 
+/* Frase final en la esquina */
 #volverTexto {
   font-size: 1rem;
   color: #444;
@@ -148,7 +150,7 @@ video {
   bottom: 15px;
   right: 20px;
   opacity: 1;
-  animation: fadeOut 4s ease-in 3s forwards;
+  animation: fadeOut 3s ease-in 5s forwards;
 }
 
 @keyframes fadeOut {
@@ -172,7 +174,7 @@ video {
   opacity: 0.8;
 }
 
-/* Botón de reinicio */
+/* Botón final */
 #restartBtn {
   padding: 12px 25px;
   font-size: 1.2rem;
