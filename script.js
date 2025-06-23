@@ -14,6 +14,7 @@ const frases = [
   { texto: "Mereces paz.", versiculo: "Jeremías 29:11 – “Planes de bienestar y no de calamidad...”" }
 ];
 
+// Inicio: botón play
 document.getElementById("startBtn").addEventListener("click", () => {
   document.getElementById("startScreen").style.display = "none";
   const audio = document.getElementById("alerta");
@@ -27,6 +28,7 @@ document.getElementById("startBtn").addEventListener("click", () => {
   }, 5000);
 });
 
+// Abrir cámara
 async function openCamera() {
   document.getElementById("bastaContainer").classList.add("hidden");
   document.getElementById("cameraContainer").classList.remove("hidden");
@@ -38,20 +40,23 @@ async function openCamera() {
   document.getElementById("video").srcObject = stream;
 }
 
+// Cambiar cámara
 function switchCamera() {
   currentCamera = currentCamera === 'environment' ? 'user' : 'environment';
   if (stream) stream.getTracks().forEach(track => track.stop());
   openCamera();
 }
 
+// Tomar foto
 function takePhoto() {
   const video = document.getElementById("video");
   const canvas = document.getElementById("snapshot");
   const context = canvas.getContext("2d");
+
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
-
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
   stream.getTracks().forEach(track => track.stop());
 
   document.getElementById("cameraContainer").classList.add("hidden");
@@ -71,23 +76,41 @@ function takePhoto() {
   }, 9600);
 }
 
+// Mostrar frase y versículo
 function showFrase() {
   const { texto, versiculo } = frases[Math.floor(Math.random() * frases.length)];
-  document.getElementById("textContainer").classList.remove("hidden");
-  document.getElementById("frase").innerText = texto;
+  const container = document.getElementById("textContainer");
+  const fraseElem = document.getElementById("frase");
+  const versiculoElem = document.getElementById("versiculo");
+
+  container.classList.remove("hidden");
+  fraseElem.innerText = texto;
 
   setTimeout(() => {
-    document.getElementById("frase").classList.add("hidden");
-    document.getElementById("versiculo").classList.remove("hidden");
-    document.getElementById("versiculo").innerText = versiculo;
+    fraseElem.classList.add("hidden");
+    versiculoElem.classList.remove("hidden");
+    versiculoElem.innerText = versiculo;
   }, 4000);
 
   setTimeout(() => {
     document.getElementById("textContainer").classList.add("hidden");
-    document.getElementById("closingContainer").classList.remove("hidden");
+    showClosing();
   }, 9000);
 }
 
+// Mostrar cierre con animación + botón
+function showClosing() {
+  const closing = document.getElementById("closingContainer");
+  closing.classList.remove("hidden");
+
+  // mostrar botón después del fadeOut
+  setTimeout(() => {
+    document.getElementById("restartBtn").classList.remove("hidden");
+    document.getElementById("marcaFinal").classList.remove("hidden");
+  }, 8000);
+}
+
+// Reiniciar experiencia
 function restart() {
   location.reload();
 }
