@@ -14,14 +14,16 @@ const frases = [
   { texto: "Mereces paz.", versiculo: "Jeremías 29:11 – “Planes de bienestar y no de calamidad...”" }
 ];
 
-// Inicio: botón play
+// ▶️ Botón de inicio
 document.getElementById("startBtn").addEventListener("click", () => {
   document.getElementById("startScreen").style.display = "none";
   const audio = document.getElementById("alerta");
   audio.play();
+
   setTimeout(() => {
     document.getElementById("bastaContainer").classList.remove("hidden");
   }, 3000);
+
   setTimeout(() => {
     audio.pause();
     audio.currentTime = 0;
@@ -62,14 +64,17 @@ function takePhoto() {
   document.getElementById("cameraContainer").classList.add("hidden");
   document.getElementById("polaroidContainer").classList.remove("hidden");
 
+  // revelar imagen
   setTimeout(() => {
     canvas.classList.add("revealed");
   }, 200);
 
+  // desintegración
   setTimeout(() => {
     document.getElementById("polaroidContainer").classList.add("disintegrate");
   }, 8200);
 
+  // pasar a frase
   setTimeout(() => {
     document.getElementById("polaroidContainer").classList.add("hidden");
     showFrase();
@@ -79,38 +84,5 @@ function takePhoto() {
 // Mostrar frase y versículo
 function showFrase() {
   const { texto, versiculo } = frases[Math.floor(Math.random() * frases.length)];
-  const container = document.getElementById("textContainer");
   const fraseElem = document.getElementById("frase");
-  const versiculoElem = document.getElementById("versiculo");
-
-  container.classList.remove("hidden");
-  fraseElem.innerText = texto;
-
-  setTimeout(() => {
-    fraseElem.classList.add("hidden");
-    versiculoElem.classList.remove("hidden");
-    versiculoElem.innerText = versiculo;
-  }, 4000);
-
-  setTimeout(() => {
-    document.getElementById("textContainer").classList.add("hidden");
-    showClosing();
-  }, 9000);
-}
-
-// Mostrar cierre con animación + botón
-function showClosing() {
-  const closing = document.getElementById("closingContainer");
-  closing.classList.remove("hidden");
-
-  // mostrar botón después del fadeOut
-  setTimeout(() => {
-    document.getElementById("restartBtn").classList.remove("hidden");
-    document.getElementById("marcaFinal").classList.remove("hidden");
-  }, 8000);
-}
-
-// Reiniciar experiencia
-function restart() {
-  location.reload();
-}
+  const versiculoElem = document
