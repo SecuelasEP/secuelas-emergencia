@@ -72,27 +72,40 @@ function showFrase() {
   const { texto, versiculo } = frases[Math.floor(Math.random() * frases.length)];
   document.getElementById("textContainer").classList.remove("hidden");
   document.getElementById("frase").innerText = texto;
+  document.getElementById("versiculo").innerText = versiculo;
 
   setTimeout(() => {
     document.getElementById("frase").classList.add("hidden");
     document.getElementById("versiculo").classList.remove("hidden");
-    document.getElementById("versiculo").innerText = versiculo;
   }, 4000);
+
+  setTimeout(() => {
+    document.getElementById("textContainer").classList.add("disintegrate");
+  }, 9000);
 
   setTimeout(() => {
     document.getElementById("textContainer").classList.add("hidden");
     showClosing();
-  }, 9000);
+  }, 10200);
 }
 
 function showClosing() {
   const container = document.getElementById("closingContainer");
   container.classList.remove("hidden");
 
+  // Después de 4s aparece el título del EP
   setTimeout(() => {
-    document.querySelector(".tituloEP").classList.remove("hidden");
-  }, 5000);
+    document.getElementById("respiraText").classList.add("hidden");
+    document.querySelector(".breathe-animation").style.display = "none";
+    document.getElementById("tituloEP").classList.remove("hidden");
+  }, 4000);
 
+  // Desintegración de todo
+  setTimeout(() => {
+    document.getElementById("closingContainer").style.animation = "disintegrate 1s steps(20) forwards";
+  }, 8000);
+
+  // Finalmente aparece el botón
   setTimeout(() => {
     document.getElementById("restartBtn").classList.remove("hidden");
   }, 9500);
