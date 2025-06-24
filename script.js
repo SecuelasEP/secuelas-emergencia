@@ -30,11 +30,9 @@ document.getElementById("startBtn").addEventListener("click", () => {
 async function openCamera() {
   document.getElementById("bastaContainer").classList.add("hidden");
   document.getElementById("cameraContainer").classList.remove("hidden");
-
   stream = await navigator.mediaDevices.getUserMedia({
     video: { facingMode: currentCamera }
   });
-
   document.getElementById("video").srcObject = stream;
 }
 
@@ -50,7 +48,6 @@ function takePhoto() {
   const context = canvas.getContext("2d");
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
-
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
   stream.getTracks().forEach(track => track.stop());
 
@@ -63,12 +60,12 @@ function takePhoto() {
 
   setTimeout(() => {
     document.getElementById("polaroidContainer").classList.add("disintegrate");
-  }, 8200);
+  }, 8000);
 
   setTimeout(() => {
     document.getElementById("polaroidContainer").classList.add("hidden");
     showFrase();
-  }, 9600);
+  }, 9300);
 }
 
 function showFrase() {
@@ -84,8 +81,21 @@ function showFrase() {
 
   setTimeout(() => {
     document.getElementById("textContainer").classList.add("hidden");
-    document.getElementById("closingContainer").classList.remove("hidden");
+    showClosing();
   }, 9000);
+}
+
+function showClosing() {
+  const container = document.getElementById("closingContainer");
+  container.classList.remove("hidden");
+
+  setTimeout(() => {
+    document.querySelector(".tituloEP").classList.remove("hidden");
+  }, 5000);
+
+  setTimeout(() => {
+    document.getElementById("restartBtn").classList.remove("hidden");
+  }, 9500);
 }
 
 function restart() {
