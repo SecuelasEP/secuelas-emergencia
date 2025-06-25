@@ -9,16 +9,28 @@
 </head>
 <body>
   <div id="startScreen">
-    <button id="startBtn">▶️ Iniciar</button>
+    <div id="playIcon">▶️</div>
   </div>
+
   <audio id="alertAudio" src="audio/alerta.mp3"></audio>
+
   <button id="bastaBtn">¡BASTA!</button>
-  <div id="camera">
+
+  <div id="cameraContainer">
     <video id="video" autoplay playsinline></video>
-    <button id="snapBtn">📸</button>
+    <div id="cameraButtons">
+      <button id="captureBtn">📸</button>
+      <button id="flipBtn">🔄</button>
+    </div>
   </div>
+
   <canvas id="canvas"></canvas>
-  <img id="photo" src="" />
+
+  <div id="polaroidContainer">
+    <img id="polaroid" src="" alt="Foto">
+    <div id="disintegrateEffect"></div>
+  </div>
+
   <div id="phrase"></div>
   <div id="verse"></div>
 </body>
