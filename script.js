@@ -1,94 +1,123 @@
+let stream;
+let currentCamera = 'environment';
 
-const alertAudio = document.getElementById("alertAudio");
-const startScreen = document.getElementById("startScreen");
-const playIcon = document.getElementById("playIcon");
-const bastaBtn = document.getElementById("bastaBtn");
-const cameraContainer = document.getElementById("cameraContainer");
-const video = document.getElementById("video");
-const captureBtn = document.getElementById("captureBtn");
-const flipBtn = document.getElementById("flipBtn");
-const canvas = document.getElementById("canvas");
-const polaroid = document.getElementById("polaroid");
-const polaroidContainer = document.getElementById("polaroidContainer");
-const disintegrateEffect = document.getElementById("disintegrateEffect");
-const phrase = document.getElementById("phrase");
-const verse = document.getElementById("verse");
-
-let stream, useFront = false;
-
-const phrases = [
-  "Respira, todo estará bien.",
-  "Estás a salvo ahora.",
-  "Suelta ese pensamiento."
+const frases = [
+  { texto: "Estás aquí, ahora.", versiculo: "Salmo 46:10 – “Estad quietos, y conoced que yo soy Dios.”" },
+  { texto: "Respira profundo.", versiculo: "Isaías 26:3 – “Tú guardarás en completa paz...”" },
+  { texto: "Nada más importa por un momento.", versiculo: "Juan 14:27 – “La paz os dejo, mi paz os doy...”" },
+  { texto: "No tienes que resolverlo todo ya.", versiculo: "Mateo 11:28 – “Venid a mí todos los que estáis trabajados...”" },
+  { texto: "Solo por hoy, suéltalo.", versiculo: "Salmo 94:19 – “Tus consolaciones alegraban mi alma.”" },
+  { texto: "Estás a salvo.", versiculo: "Salmo 4:8 – “En paz me acostaré...”" },
+  { texto: "Tu mente puede descansar.", versiculo: "Filipenses 4:7 – “La paz de Dios... guardará vuestros corazones...”" },
+  { texto: "Lo que sientes es válido.", versiculo: "Hebreos 4:15 – “No tenemos un sumo sacerdote que no pueda compadecerse...”" },
+  { texto: "No estás solo.", versiculo: "Deuteronomio 31:8 – “Él estará contigo...”" },
+  { texto: "Mereces paz.", versiculo: "Jeremías 29:11 – “Planes de bienestar y no de calamidad...”" }
 ];
 
-const verses = [
-  "Salmo 46:1 – Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones."
-];
-
-playIcon.onclick = () => {
-  startScreen.style.display = "none";
-  alertAudio.play();
+document.getElementById("startBtn").addEventListener("click", () => {
+  document.getElementById("startScreen").style.display = "none";
+  const audio = document.getElementById("alerta");
+  audio.play();
   setTimeout(() => {
-    bastaBtn.style.display = "inline-block";
+    document.getElementById("bastaContainer").classList.remove("hidden");
   }, 3000);
-};
-
-bastaBtn.onclick = async () => {
-  bastaBtn.style.display = "none";
-  cameraContainer.style.display = "flex";
-  await startCamera();
-};
-
-flipBtn.onclick = () => {
-  useFront = !useFront;
-  startCamera();
-};
-
-captureBtn.onclick = () => {
-  const ctx = canvas.getContext("2d");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  ctx.drawImage(video, 0, 0);
-  stopCamera();
-  cameraContainer.style.display = "none";
-
-  polaroid.src = canvas.toDataURL();
-  polaroidContainer.style.display = "block";
-  polaroid.style.opacity = 1;
-
   setTimeout(() => {
-    disintegrateEffect.style.opacity = 1;
-    polaroid.classList.add("disappear");
-    disintegrateEffect.classList.add("disappear");
+    audio.pause();
+    audio.currentTime = 0;
   }, 5000);
+});
 
-  setTimeout(() => {
-    polaroidContainer.style.display = "none";
-    phrase.textContent = phrases[Math.floor(Math.random() * phrases.length)];
-    phrase.style.opacity = 1;
-  }, 7000);
-
-  setTimeout(() => {
-    phrase.style.opacity = 0;
-    setTimeout(() => {
-      verse.textContent = verses[0];
-      verse.style.opacity = 1;
-    }, 1000);
-  }, 11000);
-};
-
-async function startCamera() {
-  if (stream) stream.getTracks().forEach(t => t.stop());
+async function openCamera() {
+  document.getElementById("bastaContainer").classList.add("hidden");
+  document.getElementById("cameraContainer").classList.remove("hidden");
   stream = await navigator.mediaDevices.getUserMedia({
-    video: { facingMode: useFront ? "user" : "environment" },
-    audio: false
+    video: { facingMode: currentCamera }
   });
-  video.srcObject = stream;
+  document.getElementById("video").srcObject = stream;
 }
 
-function stopCamera() {
-  if (stream) {
-    stream.getTracks().forEach(t => t.stop());
-  }
+function switchCamera() {
+  currentCamera = currentCamera === 'environment' ? 'user' : 'environment';
+  if (stream) stream.getTracks().forEach(track => track.stop());
+  openCamera();
+}
+
+function takePhoto() {
+  const video = document.getElementById("video");
+  const canvas = document.getElementById("snapshot");
+  const context = canvas.getContext("2d");
+  canvas.width = 480;
+  canvas.height = 640;
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  stream.getTracks().forEach(track => track.stop());
+
+  document.getElementById("cameraContainer").classList.add("hidden");
+  document.getElementById("polaroidContainer").classList.remove("hidden");
+
+  setTimeout(() => {
+    canvas.classList.add("revealed");
+  }, 200);
+
+  setTimeout(() => {
+    document.getElementById("polaroidContainer").classList.add("disintegrate");
+  }, 8000); // tras 3s + 5s visible
+
+  setTimeout(() => {
+    document.getElementById("polaroidContainer").classList.add("hidden");
+    showFrase();
+  }, 9300);
+}
+
+function showFrase() {
+  const { texto, versiculo } = frases[Math.floor(Math.random() * frases.length)];
+  document.getElementById("textContainer").classList.remove("hidden");
+  document.getElementById("frase").innerText = texto;
+  document.getElementById("versiculo").innerText = versiculo;
+
+  setTimeout(() => {
+    document.getElementById("frase").classList.add("hidden");
+    document.getElementById("versiculo").classList.remove("hidden");
+  }, 4000);
+
+  setTimeout(() => {
+    document.getElementById("textContainer").classList.add("disintegrate");
+  }, 9000);
+
+  setTimeout(() => {
+    document.getElementById("textContainer").classList.add("hidden");
+    showClosing();
+  }, 10200);
+}
+
+function showClosing() {
+  const container = document.getElementById("closingContainer");
+  container.classList.remove("hidden");
+
+  setTimeout(() => {
+    document.getElementById("respiraText").classList.remove("hidden");
+    document.querySelector(".breathe-animation").style.display = "block";
+  }, 500);
+
+  setTimeout(() => {
+    document.getElementById("regresaText").style.opacity = 1;
+  }, 4000);
+
+  setTimeout(() => {
+    document.getElementById("respiraText").classList.add("hidden");
+    document.querySelector(".breathe-animation").style.display = "none";
+    document.getElementById("regresaText").style.opacity = 0;
+    document.getElementById("tituloEP").classList.remove("hidden");
+  }, 8500);
+
+  setTimeout(() => {
+    container.style.animation = "disintegrate 1s steps(15) forwards";
+  }, 12500);
+
+  setTimeout(() => {
+    document.getElementById("restartBtn").classList.remove("hidden");
+  }, 14000);
+}
+
+function restart() {
+  location.reload();
 }
