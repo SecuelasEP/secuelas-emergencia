@@ -1,179 +1,160 @@
-body, html {
+body {
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
-  background: url('assets/background.jpg') no-repeat center center fixed;
+  font-family: 'Helvetica Neue', sans-serif;
+  background: url('assets/fondo.jpg') no-repeat center center fixed;
   background-size: cover;
-  height: 100vh;
   overflow: hidden;
+}
+
+button {
+  padding: 14px 28px;
+  font-size: 18px;
+  background-color: #c30000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#startScreen, #bastaContainer, #cameraContainer, #polaroidContainer, #textContainer, #closingContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .hidden {
   display: none !important;
 }
 
-/* Pantallas principales */
-#startScreen, #bastaContainer, #cameraContainer, #polaroidContainer, #textContainer, #closingContainer {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-/* Botones */
-#startBtn {
-  font-size: 3rem;
-  background: white;
-  border: none;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  cursor: pointer;
-}
-
-#bastaBtn, #restartBtn {
-  font-size: 1.5rem;
-  padding: 1em 2em;
-  background: black;
-  color: white;
-  border: none;
+#bastaBtn {
+  font-size: 24px;
+  background-color: #c30000;
+  padding: 16px 32px;
   border-radius: 10px;
-  margin-top: 20px;
 }
 
-/* Cámara */
 video {
-  width: 90vw;
-  max-width: 360px;
-  border-radius: 20px;
-}
-
-#cameraControls {
-  margin-top: 15px;
-}
-
-#cameraControls button {
-  margin: 10px;
-  font-size: 1.5rem;
-}
-
-/* Polaroid */
-#polaroidFrame {
-  width: 300px;
-  z-index: 1;
-}
-
-#polaroidFrame {
-  width: 300px;
-  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
 }
 
 #snapshot {
-  position: absolute;
-  top: 94px; /* Ajustado para centrar verticalmente */
+  position: fixed;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  width: 224px;   /* Ajustado al marco blanco */
-  height: 298px;  /* Relación vertical tipo celular */
+  transform: translate(-50%, -50%);
+  width: 70vw;
+  height: auto;
+  max-height: 80vh;
   opacity: 0;
   transition: opacity 3s ease-in;
   z-index: 2;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 #snapshot.revealed {
   opacity: 1;
 }
 
-#polaroidContainer.disintegrate {
-  animation: disintegrate 1s steps(15) forwards;
-}
-
-/* Texto frase/versículo */
-.text-background {
-  background-color: rgba(255, 255, 255, 0.93);
-  padding: 25px;
-  border-radius: 12px;
-  max-width: 85vw;
-  text-align: center;
+canvas, video {
+  display: block;
 }
 
 #frase, #versiculo {
-  font-size: 1.6rem;
-  line-height: 1.6;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  margin: 10px;
+  font-size: 20px;
+  border-radius: 12px;
+  text-align: center;
+  max-width: 80%;
+  color: #222;
 }
 
-#textContainer.disintegrate {
-  animation: disintegrate 1s steps(15) forwards;
+#frase {
+  font-size: 22px;
+  font-weight: bold;
 }
 
-/* Respiración */
+#versiculo {
+  display: none;
+}
+
+#textContainer.disintegrate,
+#polaroidContainer.disintegrate {
+  animation: disintegrate 1.2s steps(20) forwards;
+}
+
+@keyframes disintegrate {
+  100% {
+    opacity: 0;
+    transform: scale(1.1) translateY(-20px);
+    filter: blur(4px);
+  }
+}
+
 .breathe-animation {
-  width: 90px;
-  height: 90px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.5);
-  animation: breathe 8s ease-in-out infinite;
-  margin: 20px 0;
+  background-color: rgba(255, 255, 255, 0.4);
+  animation: breathing 6s ease-in-out infinite;
+  margin-top: 20px;
+  display: none;
 }
 
-@keyframes breathe {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.7); opacity: 1; }
+@keyframes breathing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
 }
 
 #respiraText {
-  font-size: 1.4rem;
+  font-size: 24px;
   color: white;
-  margin-top: 30px;
+  margin-bottom: 16px;
 }
 
 #regresaText {
   position: absolute;
-  bottom: 10%;
-  right: 6%;
-  font-size: 1rem;
+  bottom: 60px;
+  right: 20px;
   color: white;
+  font-size: 16px;
   opacity: 0;
-  animation: fadeText 5s 4s forwards;
+  transition: opacity 2s;
 }
 
-@keyframes fadeText {
-  0% { opacity: 0; }
-  40% { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* Título EP */
 #tituloEP {
-  text-align: center;
+  font-size: 22px;
   color: white;
-  animation: showAndHide 4s ease-in-out forwards;
-  opacity: 0;
+  text-align: center;
   margin-top: 20px;
+  display: none;
 }
 
-.titulo {
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.subtitulo {
-  font-size: 1.1rem;
-  margin-top: 10px;
-}
-
-/* Desintegración */
-@keyframes disintegrate {
-  0% { opacity: 1; clip-path: inset(0 0 0 0); }
-  100% { opacity: 0; clip-path: inset(100% 100% 100% 100%); }
-}
-
-@keyframes showAndHide {
-  0% { opacity: 0; }
-  25% { opacity: 1; }
-  100% { opacity: 0; }
+#restartBtn {
+  margin-top: 30px;
+  background-color: #c30000;
+  color: white;
+  padding: 12px 24px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  display: none;
 }
