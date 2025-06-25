@@ -66,17 +66,22 @@ video {
   z-index: 1;
 }
 
+#polaroidFrame {
+  width: 300px;
+  z-index: 1;
+}
+
 #snapshot {
   position: absolute;
-  top: 90px;
+  top: 98px; /* Ajustado fino */
   left: 50%;
   transform: translateX(-50%);
-  width: 210px;
-  height: 280px;
+  width: 218px;
+  height: 288px;
   opacity: 0;
   transition: opacity 3s ease-in;
   z-index: 2;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 #snapshot.revealed {
