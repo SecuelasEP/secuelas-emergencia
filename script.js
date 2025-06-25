@@ -60,7 +60,7 @@ function takePhoto() {
 
   setTimeout(() => {
     document.getElementById("polaroidContainer").classList.add("disintegrate");
-  }, 8000); // tras 3s + 5s revelado
+  }, 8000); // tras 3s + 5s visible
 
   setTimeout(() => {
     document.getElementById("polaroidContainer").classList.add("hidden");
@@ -93,13 +93,11 @@ function showClosing() {
   const container = document.getElementById("closingContainer");
   container.classList.remove("hidden");
 
-  // Después de versículo
   setTimeout(() => {
     document.getElementById("respiraText").classList.remove("hidden");
     document.querySelector(".breathe-animation").style.display = "block";
-  }, 200);
+  }, 500);
 
-  // Mostrar texto "Puedes regresar..." y luego el título
   setTimeout(() => {
     document.getElementById("regresaText").style.opacity = 1;
   }, 4000);
