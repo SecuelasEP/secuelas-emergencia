@@ -1,0 +1,87 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: serif;
+  background: url('img/fondo.png') center/cover no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#startScreen {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255,255,255,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+#playIcon {
+  font-size: 4em;
+  cursor: pointer;
+}
+
+#bastaBtn {
+  display: none;
+  background: #6b4c3b;
+  color: white;
+  font-size: 2em;
+  padding: 1em 2em;
+  border: none;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+
+#cameraContainer {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+#video {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 20px;
+}
+
+#cameraButtons {
+  margin-top: 10px;
+}
+
+#captureBtn, #flipBtn {
+  font-size: 1.5em;
+  margin: 0 10px;
+  padding: .6em 1em;
+  border-radius: 50%;
+  border: none;
+  background: #6b4c3b;
+  color: white;
+}
+
+#photo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 70vw;
+  max-height: 80vh;
+  border-radius: 8px;
+  display: none;
+  transition: opacity 2s ease-in-out;
+}
+
+#photo.fadeout {
+  opacity: 0;
+  transform: scale(1.2);
+}
+
+#phrase, #verse {
+  font-size: 1.6em;
+  margin: 20px 0;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
