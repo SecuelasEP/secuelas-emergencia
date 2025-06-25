@@ -55,7 +55,7 @@ function takePhoto() {
   document.getElementById("polaroidContainer").classList.remove("hidden");
 
   setTimeout(() => {
-    canvas.classList.add("revealed");
+    canvas.classList.add("hidden");
   }, 200);
 
   setTimeout(() => {
