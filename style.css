@@ -66,11 +66,16 @@ body {
 }
 
 #polaroidContainer {
-  position: relative;
-  width: 80%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
   max-width: 300px;
-  margin-top: 20px;
   display: none;
+  z-index: 5;
+  justify-content: center;
+  align-items: center;
 }
 
 #polaroid {
@@ -79,6 +84,7 @@ body {
   background: gray;
   transition: opacity 1s ease-in-out;
   opacity: 0;
+  border-radius: 8px;
 }
 
 #disintegrateEffect {
