@@ -1,0 +1,177 @@
+/* Reset y fondo */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: url('assets/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Contenedores principales */
+#startScreen, #bastaContainer, #cameraContainer, #polaroidContainer,
+#textContainer, #closingContainer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Botones */
+#startBtn {
+  font-size: 3rem;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+#bastaBtn, #restartBtn {
+  font-size: 1.5rem;
+  padding: 1em 2em;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+/* Cámara */
+video {
+  width: 90vw;
+  max-width: 360px;
+  border-radius: 20px;
+}
+
+#cameraControls {
+  margin-top: 15px;
+}
+
+#cameraControls button {
+  margin: 10px;
+  font-size: 1.5rem;
+}
+
+/* Polaroid */
+#polaroidFrame {
+  width: 300px;
+  z-index: 1;
+}
+
+#snapshot {
+  position: absolute;
+  top: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 290px;
+  opacity: 0;
+  transition: opacity 3s ease-in;
+  z-index: 2;
+  border-radius: 4px;
+}
+
+#snapshot.revealed {
+  opacity: 1;
+}
+
+#polaroidContainer.disintegrate {
+  animation: disintegrate 1s steps(15) forwards;
+}
+
+/* Texto principal */
+.text-background {
+  background-color: rgba(255, 255, 255, 0.92);
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 85vw;
+  text-align: center;
+}
+
+#frase, #versiculo {
+  font-size: 1.6rem;
+  line-height: 1.6;
+}
+
+#textContainer.disintegrate {
+  animation: disintegrate 1s steps(15) forwards;
+}
+
+/* Respiración */
+.breathe-animation {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  animation: breathe 8s ease-in-out infinite;
+  margin: 20px 0;
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.7); opacity: 1; }
+}
+
+/* Texto de cierre */
+#respiraText {
+  font-size: 1.4rem;
+  color: white;
+  margin-top: 30px;
+}
+
+#regresaText {
+  position: absolute;
+  bottom: 10%;
+  right: 6%;
+  font-size: 1rem;
+  color: white;
+  opacity: 0;
+  animation: fadeText 4s 4s forwards;
+}
+
+@keyframes fadeText {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Título del EP */
+#tituloEP {
+  text-align: center;
+  color: white;
+  animation: showAndHide 4s ease-in-out forwards;
+  opacity: 0;
+  margin-top: 20px;
+}
+
+.titulo {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.subtitulo {
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+/* Animaciones */
+@keyframes disintegrate {
+  0% { opacity: 1; clip-path: inset(0 0 0 0); }
+  100% { opacity: 0; clip-path: inset(100% 100% 100% 100%); }
+}
+
+@keyframes showAndHide {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  100% { opacity: 0; }
+}
