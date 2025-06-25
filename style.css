@@ -73,11 +73,11 @@ video {
 
 #snapshot {
   position: absolute;
-  top: 98px; /* Ajustado fino */
+  top: 94px; /* Ajustado para centrar verticalmente */
   left: 50%;
   transform: translateX(-50%);
-  width: 218px;
-  height: 288px;
+  width: 224px;   /* Ajustado al marco blanco */
+  height: 298px;  /* Relación vertical tipo celular */
   opacity: 0;
   transition: opacity 3s ease-in;
   z-index: 2;
