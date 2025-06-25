@@ -68,11 +68,11 @@ video {
 
 #snapshot {
   position: absolute;
-  top: 95px;
+  top: 90px;
   left: 50%;
   transform: translateX(-50%);
-  width: 220px;
-  height: 290px;
+  width: 210px;
+  height: 280px;
   opacity: 0;
   transition: opacity 3s ease-in;
   z-index: 2;
