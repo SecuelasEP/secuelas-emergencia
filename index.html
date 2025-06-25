@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Secuelas Emergencia</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="startScreen">
+    <button id="startBtn">▶️</button>
+  </div>
+
+  <audio id="alerta" src="assets/Alerta.mp3"></audio>
+
+  <div id="bastaContainer" class="hidden">
+    <button id="bastaBtn" onclick="openCamera()">¡BASTA!</button>
+  </div>
+
+  <div id="cameraContainer" class="hidden">
+    <video id="video" autoplay playsinline></video>
+    <div id="cameraControls">
+      <button onclick="switchCamera()">🔄</button>
+      <button onclick="takePhoto()">📸</button>
+    </div>
+  </div>
+
+  <div id="polaroidContainer" class="hidden">
+    <img id="polaroidFrame" src="assets/polaroid.png" />
+    <canvas id="snapshot"></canvas>
+  </div>
+
+  <div id="textContainer" class="hidden">
+    <div class="text-background">
+      <p id="frase"></p>
+      <p id="versiculo" class="hidden"></p>
+    </div>
+  </div>
+
+  <div id="closingContainer" class="hidden">
+    <p id="respiraText">Respira conmigo</p>
+    <div class="breathe-animation"></div>
+    <p id="regresaText">Puedes regresar cuando lo necesites</p>
+    <div id="tituloEP" class="hidden">
+      <p class="titulo">Secuelas</p>
+      <p class="subtitulo">una lucha constante con nuestra propia mente</p>
+    </div>
+    <button id="restartBtn" class="hidden" onclick="restart()">Volver a comenzar</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
