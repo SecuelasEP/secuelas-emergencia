@@ -1,0 +1,94 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 20px;
+  font-family: serif;
+  background: white url('img/fondo.png') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+#startScreen {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+#playIcon {
+  font-size: 4em;
+  cursor: pointer;
+}
+
+#bastaBtn {
+  display: none;
+  background: #6b4c3b;
+  color: white;
+  font-size: 2em;
+  padding: 0.8em 2em;
+  border: none;
+  border-radius: 25px;
+  margin-top: 20px;
+}
+
+#cameraContainer {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+#video {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 20px;
+}
+
+#cameraButtons {
+  margin-top: 10px;
+  display: flex;
+  gap: 20px;
+}
+
+#captureBtn, #flipBtn {
+  font-size: 1.5em;
+  padding: 0.7em 1em;
+  border-radius: 50%;
+  border: none;
+  background: #6b4c3b;
+  color: white;
+}
+
+#polaroidContainer {
+  display: none;
+  width: 80%;
+  max-width: 320px;
+  margin: 20px auto;
+  border: 12px solid white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  background: white;
+}
+
+#polaroid {
+  width: 100%;
+  display: block;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+}
+
+#phrase, #verse {
+  font-size: 1.4em;
+  margin-top: 20px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
