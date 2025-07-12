@@ -59,7 +59,7 @@ captureButton.addEventListener("click", async () => {
   canvas.height = camera.videoHeight;
   context.drawImage(camera, 0, 0, canvas.width, canvas.height);
   stopCamera();
-  await showReveal();
+  showReveal();
 });
 
 function startCamera() {
@@ -86,43 +86,21 @@ function stopCamera() {
 
 async function showReveal() {
   canvas.style.display = "none";
-
-  // Mostrar la imagen tomada dentro del photoReveal
-  const img = new Image();
-  img.src = canvas.toDataURL("image/png");
-  img.style.width = "100%";
-  img.style.height = "auto";
-  photoReveal.innerHTML = "";
-  photoReveal.appendChild(img);
   photoReveal.style.display = "block";
-
-  // Esperar 5 segundos, luego desintegrar la imagen
   await delay(5000);
-  photoReveal.classList.add("disintegrate");
-  await delay(1500);
   photoReveal.style.display = "none";
-  photoReveal.classList.remove("disintegrate");
 
-  // Mostrar mensaje aleatorio
   const rand = Math.floor(Math.random() * phrases.length);
   message.innerText = phrases[rand].text;
   message.style.display = "block";
   await delay(4000);
-  message.classList.add("disintegrate");
-  await delay(1500);
   message.style.display = "none";
-  message.classList.remove("disintegrate");
 
-  // Mostrar versículo correspondiente
   message.innerText = phrases[rand].verse;
   message.style.display = "block";
   await delay(4000);
-  message.classList.add("disintegrate");
-  await delay(1500);
   message.style.display = "none";
-  message.classList.remove("disintegrate");
 
-  // Animación de respiración
   breathing.style.display = "block";
   for (let i = 0; i < 3; i++) {
     breathingText.innerText = "Solo respira...";
@@ -130,6 +108,5 @@ async function showReveal() {
   }
   breathing.style.display = "none";
 
-  // Mostrar pantalla final
   finalScreen.style.display = "block";
 }
