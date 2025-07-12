@@ -1,3 +1,4 @@
+
 const playButton = document.getElementById("playButton");
 const bastaButton = document.getElementById("bastaButton");
 const alertAudio = document.getElementById("alertAudio");
@@ -59,7 +60,7 @@ captureButton.addEventListener("click", async () => {
   canvas.height = camera.videoHeight;
   context.drawImage(camera, 0, 0, canvas.width, canvas.height);
   stopCamera();
-  showReveal();
+  await showReveal();
 });
 
 function startCamera() {
@@ -86,20 +87,37 @@ function stopCamera() {
 
 async function showReveal() {
   canvas.style.display = "none";
+
+  const img = new Image();
+  img.src = canvas.toDataURL("image/png");
+  img.style.width = "100%";
+  img.style.height = "auto";
+  photoReveal.innerHTML = "";
+  photoReveal.appendChild(img);
   photoReveal.style.display = "block";
+
   await delay(5000);
+  photoReveal.classList.add("disintegrate");
+  await delay(1500);
   photoReveal.style.display = "none";
+  photoReveal.classList.remove("disintegrate");
 
   const rand = Math.floor(Math.random() * phrases.length);
   message.innerText = phrases[rand].text;
   message.style.display = "block";
   await delay(4000);
+  message.classList.add("disintegrate");
+  await delay(1500);
   message.style.display = "none";
+  message.classList.remove("disintegrate");
 
   message.innerText = phrases[rand].verse;
   message.style.display = "block";
   await delay(4000);
+  message.classList.add("disintegrate");
+  await delay(1500);
   message.style.display = "none";
+  message.classList.remove("disintegrate");
 
   breathing.style.display = "block";
   for (let i = 0; i < 3; i++) {
