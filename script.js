@@ -86,9 +86,45 @@ function stopCamera() {
 
 async function showReveal() {
   canvas.style.display = "none";
-  photoReveal.style.display = "block";
-  await delay(5000);
+
+  // Capturar imagen como dataURL
+  const dataUrl = canvas.toDataURL();
+
+  // Mostrar en img dentro de photoReveal
+  const revealedPhoto = document.getElementById("revealedPhoto");
+  const photoReveal = document.getElementById("photoReveal");
+
+  revealedPhoto.src = dataUrl;
+  photoReveal.classList.add("show");
+
+  // Esperar 4 segundos antes de continuar
+  await delay(4000);
+
+  // Ocultar para la siguiente parte del flujo
+  photoReveal.classList.remove("show");
   photoReveal.style.display = "none";
+
+  // Continuar con el flujo de frases, versículos, etc.
+  const rand = Math.floor(Math.random() * phrases.length);
+  message.innerText = phrases[rand].text;
+  message.style.display = "block";
+  await delay(4000);
+  message.style.display = "none";
+
+  message.innerText = phrases[rand].verse;
+  message.style.display = "block";
+  await delay(4000);
+  message.style.display = "none";
+
+  breathing.style.display = "block";
+  for (let i = 0; i < 3; i++) {
+    breathingText.innerText = "Solo respira...";
+    await delay(3000);
+  }
+  breathing.style.display = "none";
+
+  finalScreen.style.display = "block";
+}
 
   const rand = Math.floor(Math.random() * phrases.length);
   message.innerText = phrases[rand].text;
