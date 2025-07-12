@@ -7,30 +7,56 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+  <!-- Fondo de la página -->
   <div id="background"></div>
+
+  <!-- Contenedor principal -->
   <div id="container">
+
+    <!-- Botón de inicio -->
     <button id="playButton">▶️</button>
+
+    <!-- Botón ¡BASTA! -->
     <button id="bastaButton">¡BASTA!</button>
 
+    <!-- Vista de la cámara -->
     <video id="camera" autoplay playsinline></video>
+
+    <!-- Controles de cámara -->
     <div id="controls">
       <button id="flipButton">🔁</button>
       <button id="captureButton">📸</button>
     </div>
 
+    <!-- Foto capturada -->
     <canvas id="canvas"></canvas>
+
+    <!-- Foto revelada en estilo Polaroid -->
     <div id="photoReveal"></div>
+
+    <!-- Mensaje aleatorio -->
     <div id="message"></div>
+
+    <!-- Ejercicio de respiración -->
     <div id="breathing">
       <div id="breathingCircle"></div>
       <div id="breathingText">Solo respira...</div>
     </div>
+
+    <!-- Pantalla final -->
     <div id="finalScreen">
-      <div id="finalText">SECUELAS<br><span>Una lucha constante con nuestra propia mente</span></div>
+      <div id="finalText">
+        SECUELAS<br>
+        <span>Una lucha constante con nuestra propia mente</span>
+      </div>
       <div id="finalCorner">Regresa cuando lo necesites</div>
     </div>
   </div>
+
+  <!-- Audio de inicio -->
   <audio id="alertAudio" src="Alerta.mp3"></audio>
+
+  <!-- Script principal -->
   <script src="script.js"></script>
 </body>
 </html>
