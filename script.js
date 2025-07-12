@@ -6,7 +6,6 @@ const flipButton = document.getElementById("flipButton");
 const captureButton = document.getElementById("captureButton");
 const canvas = document.getElementById("canvas");
 const photoReveal = document.getElementById("photoReveal");
-const photoImg = document.getElementById("photoImg");
 const message = document.getElementById("message");
 const breathing = document.getElementById("breathing");
 const breathingText = document.getElementById("breathingText");
@@ -38,6 +37,7 @@ playButton.addEventListener("click", async () => {
     alertAudio.pause();
     alertAudio.currentTime = 0;
   }, 5000);
+
   playButton.style.display = "none";
   await delay(3000);
   bastaButton.style.display = "inline-block";
@@ -59,9 +59,7 @@ captureButton.addEventListener("click", async () => {
   canvas.height = camera.videoHeight;
   context.drawImage(camera, 0, 0, canvas.width, canvas.height);
   stopCamera();
-  const imageData = canvas.toDataURL();
-  photoImg.src = imageData;
-  await showReveal();
+  showReveal();
 });
 
 function startCamera() {
@@ -90,37 +88,25 @@ async function showReveal() {
   canvas.style.display = "none";
   photoReveal.style.display = "block";
   await delay(5000);
-  photoReveal.classList.add("disappear");
-  await delay(1000);
   photoReveal.style.display = "none";
-  photoReveal.classList.remove("disappear");
 
   const rand = Math.floor(Math.random() * phrases.length);
   message.innerText = phrases[rand].text;
   message.style.display = "block";
   await delay(4000);
-  message.classList.add("disappear");
-  await delay(1000);
   message.style.display = "none";
-  message.classList.remove("disappear");
 
   message.innerText = phrases[rand].verse;
   message.style.display = "block";
   await delay(4000);
-  message.classList.add("disappear");
-  await delay(1000);
   message.style.display = "none";
-  message.classList.remove("disappear");
 
   breathing.style.display = "block";
   for (let i = 0; i < 3; i++) {
     breathingText.innerText = "Solo respira...";
     await delay(3000);
   }
-  breathing.classList.add("disappear");
-  await delay(1000);
   breathing.style.display = "none";
-  breathing.classList.remove("disappear");
 
   finalScreen.style.display = "block";
 }
