@@ -1,8 +1,6 @@
-
 * {
   box-sizing: border-box;
 }
-
 body, html {
   margin: 0;
   padding: 0;
@@ -12,7 +10,6 @@ body, html {
   text-align: center;
   overflow: hidden;
 }
-
 #background {
   background-image: url('background.JPG');
   background-size: cover;
@@ -23,7 +20,6 @@ body, html {
   z-index: -1;
   opacity: 0.8;
 }
-
 #container {
   padding: 20px;
   display: flex;
@@ -32,7 +28,6 @@ body, html {
   justify-content: center;
   min-height: 100vh;
 }
-
 button {
   font-size: 24px;
   padding: 12px 24px;
@@ -42,44 +37,31 @@ button {
   background-color: #6f4e37;
   color: white;
 }
-
 #bastaButton, #controls, #camera, #canvas, #photoReveal, #message, #breathing, #finalScreen {
   display: none;
 }
 
-video, canvas {
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-}
-
+/* FOTO REVEAL */
 #photoReveal {
   margin-top: 20px;
-  max-width: 90%;
-  max-height: 80vh;
-  background-color: transparent;
-  border: 12px solid white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-#photoReveal img {
   width: 100%;
-  height: auto;
-  display: block;
+  max-width: 90%;
+  border: 12px solid white;
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
+/* MENSAJES */
 #message, #breathing, #finalScreen {
   font-size: 28px;
   margin-top: 20px;
 }
 
+/* PANTALLA FINAL */
 #finalText {
   font-size: 26px;
   margin-top: 40px;
 }
-
 #finalCorner {
   position: absolute;
   bottom: 20px;
@@ -87,6 +69,7 @@ video, canvas {
   font-size: 16px;
 }
 
+/* RESPIRACIÓN */
 #breathingCircle {
   width: 150px;
   height: 150px;
@@ -95,24 +78,25 @@ video, canvas {
   background: rgba(255, 255, 255, 0.5);
   animation: breathe 3s ease-in-out infinite;
 }
-
 @keyframes breathe {
   0% { transform: scale(1); opacity: 0.8; }
   50% { transform: scale(1.5); opacity: 1; }
   100% { transform: scale(1); opacity: 0.8; }
 }
 
+/* EFECTO DESINTEGRACIÓN */
 @keyframes disintegrate {
   0% {
     opacity: 1;
-    clip-path: inset(0 0 0 0);
+    filter: blur(0);
+    transform: translate(0, 0) scale(1);
   }
   100% {
     opacity: 0;
-    clip-path: inset(0 100% 0 0);
+    filter: blur(3px);
+    transform: translate(50px, -50px) scale(1.2);
   }
 }
-
 .disintegrate {
-  animation: disintegrate 1.5s ease-out forwards;
+  animation: disintegrate 1s forwards;
 }
