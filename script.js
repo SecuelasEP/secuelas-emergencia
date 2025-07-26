@@ -1,107 +1,67 @@
 const playButton = document.getElementById("playButton");
 const bastaButton = document.getElementById("bastaButton");
 const alertAudio = document.getElementById("alertAudio");
-const camera = document.getElementById("camera");
+const cameraSection = document.getElementById("cameraSection");
+const video = document.getElementById("camera");
 const flipButton = document.getElementById("flipButton");
 const captureButton = document.getElementById("captureButton");
 const canvas = document.getElementById("canvas");
 const photoReveal = document.getElementById("photoReveal");
 const message = document.getElementById("message");
 const breathing = document.getElementById("breathing");
-const breathingText = document.getElementById("breathingText");
 const finalScreen = document.getElementById("finalScreen");
 
-let usingFrontCamera = false;
-let currentStream = null;
-
-const phrases = [
-  { text: "Estás aquí, ahora.", verse: "Salmo 46:10 – “Estad quietos, y conoced que yo soy Dios.”" },
-  { text: "Respira profundo.", verse: "Isaías 26:3 – “Tú guardarás en completa paz…”" },
-  { text: "Nada más importa por un momento.", verse: "Juan 14:27 – “La paz os dejo, mi paz os doy…”" },
-  { text: "No tienes que resolverlo todo ya.", verse: "Mateo 11:28 – “Venid a mí todos los que estáis…”" },
-  { text: "Solo por hoy, suéltalo.", verse: "Salmo 94:19 – “En la multitud de mis pensamientos…”" },
-  { text: "Estás a salvo.", verse: "Salmo 4:8 – “En paz me acostaré…”" },
-  { text: "Tu mente puede descansar.", verse: "Filipenses 4:7 – “Y la paz de Dios…”" },
-  { text: "Lo que sientes es válido.", verse: "Hebreos 4:15 – “No tenemos un sumo sacerdote…”" },
-  { text: "No estás solo.", verse: "Deuteronomio 31:8 – “Jehová va delante de ti…”" },
-  { text: "Mereces paz.", verse: "Jeremías 29:11 – “Porque yo sé los planes que tengo…”" }
-];
+let facingMode = "environment";
 
 function delay(ms) {
   return new Promise(res => setTimeout(res, ms));
 }
 
-// 1. Reproducir audio 5s + ocultar botón
 playButton.addEventListener("click", async () => {
-  alertAudio.play();
   playButton.style.display = "none";
-  setTimeout(() => {
-    alertAudio.pause();
-    alertAudio.currentTime = 0;
-  }, 5000);
-
-  // 2. Tras 3s, mostrar ¡BASTA!
+  alertAudio.play();
+  // 2. A los 3s aparece ¡BASTA!
   await delay(3000);
-  bastaButton.style.display = "inline-block";
+  bastaButton.style.display = "block";
+  // 1. Detener audio a los 5s
+  setTimeout(() => alertAudio.pause(), 2000);
 });
 
-bastaButton.addEventListener("click", () => {
+bastaButton.addEventListener("click", async () => {
+  // 3. Abrir cámara
   bastaButton.style.display = "none";
-  startCamera();
-});
-flipButton.addEventListener("click", () => {
-  usingFrontCamera = !usingFrontCamera;
-  startCamera();
+  cameraSection.style.display = "block";
+  const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode } });
+  video.srcObject = stream;
 });
 
-// Capturar foto
+flipButton.addEventListener("click", async () => {
+  facingMode = facingMode === "environment" ? "user" : "environment";
+  const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode } });
+  video.srcObject = stream;
+});
+
 captureButton.addEventListener("click", async () => {
+  // 4. Captura y revelado
   const ctx = canvas.getContext("2d");
-  canvas.width = camera.videoWidth;
-  canvas.height = camera.videoHeight;
-  ctx.drawImage(camera, 0, 0);
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  ctx.drawImage(video, 0, 0);
+  // detener cámara
+  video.srcObject.getTracks().forEach(t => t.stop());
+  cameraSection.style.display = "none";
 
-  stopCamera();
-  await showReveal();
-});
-
-function startCamera() {
-  if (currentStream) currentStream.getTracks().forEach(t => t.stop());
-  navigator.mediaDevices.getUserMedia({
-    video: { facingMode: usingFrontCamera ? "user" : "environment" }
-  }).then(stream => {
-    currentStream = stream;
-    camera.srcObject = stream;
-    camera.style.display = "block";
-    document.getElementById("controls").style.display = "block";
-  });
-}
-
-function stopCamera() {
-  if (currentStream) currentStream.getTracks().forEach(t => t.stop());
-  camera.style.display = "none";
-  document.getElementById("controls").style.display = "none";
-}
-
-async function showReveal() {
-  // 4. Foto revelada con fade-in
-  photoReveal.src = canvas.toDataURL();
+  // asignar imagen al div
+  const dataUrl = canvas.toDataURL();
+  photoReveal.style.backgroundImage = `url(${dataUrl})`;
   photoReveal.style.display = "block";
-  // forzar reflow antes de opacidad
-  requestAnimationFrame(() => {
-    photoReveal.style.opacity = "1";
-  });
   await delay(5000);
-  // efecto desintegración foto
   photoReveal.classList.add("disintegrate");
   await delay(1000);
   photoReveal.style.display = "none";
-  photoReveal.style.opacity = "0";
-  photoReveal.classList.remove("disintegrate");
 
-  // 5. Mostrar frase (4s) + desintegrar
-  const rand = Math.floor(Math.random() * phrases.length);
-  message.innerText = phrases[rand].text;
+  // 5. Frase aleatoria
+  message.innerText = "A veces basta un instante para cambiarlo todo.";
   message.style.display = "block";
   await delay(4000);
   message.classList.add("disintegrate");
@@ -109,8 +69,8 @@ async function showReveal() {
   message.style.display = "none";
   message.classList.remove("disintegrate");
 
-  // 6. Mostrar versículo (4s) + desintegrar
-  message.innerText = phrases[rand].verse;
+  // 6. Versículo
+  message.innerText = "“El Señor es mi luz y mi salvación; ¿a quién temeré?” — Salmo 27:1";
   message.style.display = "block";
   await delay(4000);
   message.classList.add("disintegrate");
@@ -118,10 +78,9 @@ async function showReveal() {
   message.style.display = "none";
   message.classList.remove("disintegrate");
 
-  // 7. Respiración (3 ciclos) + desintegrar
-  breathing.style.display = "block";
+  // 7. Respiración (3 ciclos)
+  breathing.style.display = "flex";
   for (let i = 0; i < 3; i++) {
-    breathingText.innerText = "Solo respira...";
     await delay(3000);
   }
   breathing.classList.add("disintegrate");
@@ -130,5 +89,9 @@ async function showReveal() {
   breathing.classList.remove("disintegrate");
 
   // 8. Pantalla final
+  // desin­tegra todo el container
+  document.getElementById("container").classList.add("disintegrate");
+  await delay(1000);
+  document.getElementById("container").style.display = "none";
   finalScreen.style.display = "block";
-}
+});
