@@ -1,40 +1,49 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Secuelas</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="background"></div>
   <div id="container">
+    <!-- 1. PLAY -->
     <button id="playButton">▶️</button>
+    <audio id="alertAudio" src="Alerta.mp3"></audio>
+
+    <!-- 2. ¡BASTA! -->
     <button id="bastaButton">¡BASTA!</button>
 
-    <video id="camera" autoplay playsinline></video>
-    <div id="controls">
-      <button id="flipButton">🔁</button>
-      <button id="captureButton">📸</button>
+    <!-- 3. Cámara -->
+    <div id="cameraSection">
+      <video id="camera" autoplay playsinline></video>
+      <div id="controls">
+        <button id="flipButton">🔄</button>
+        <button id="captureButton">📸</button>
+      </div>
     </div>
 
-    <canvas id="canvas"></canvas>
-    <!-- Ahora es un <img> para poder usar src-->
-    <img id="photoReveal" alt="Foto revelada"/>
+    <!-- 4. Foto tipo Polaroid -->
+    <canvas id="canvas" style="display:none;"></canvas>
+    <div id="photoReveal"></div>
+
+    <!-- 5+6. Mensaje y Versículo -->
     <div id="message"></div>
+
+    <!-- 7. Respiración -->
     <div id="breathing">
-      <div id="breathingCircle"></div>
-      <div id="breathingText">Solo respira...</div>
+      <div class="circle"></div>
+      <p>Solo respira…</p>
     </div>
+
+    <!-- 8. Pantalla final -->
     <div id="finalScreen">
-      <div id="finalText">
-        SECUELAS<br>
-        <span>Una lucha constante con nuestra propia mente</span>
-      </div>
-      <div id="finalCorner">Regresa cuando lo necesites</div>
+      <h1>Secuelas: una lucha constante con nuestra propia mente</h1>
+      <p>Regresa cuando lo necesites</p>
     </div>
   </div>
-  <audio id="alertAudio" src="Alerta.mp3"></audio>
+
   <script src="script.js"></script>
 </body>
 </html>
